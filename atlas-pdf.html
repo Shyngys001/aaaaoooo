@@ -1,0 +1,2078 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ATLAS Ultimate — Premium Package Generator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Cinzel:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --gold: #D4AF37;
+  --gold-dark: #8B7500;
+  --gold-light: #FFD700;
+  --black: #1A1A1A;
+  --white: #FFFFFF;
+  --gray: #E0E0E0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f8f9fa;
+  color: var(--black);
+  line-height: 1.6;
+}
+
+.app-container {
+  display: grid;
+  grid-template-columns: 450px 1fr;
+  min-height: 100vh;
+}
+
+.editor-panel {
+  background: white;
+  border-right: 1px solid #e0e0e0;
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+.editor-header {
+  padding: 32px 24px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  color: white;
+  text-align: center;
+}
+
+.editor-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.editor-header p {
+  font-size: 13px;
+  opacity: 0.8;
+  letter-spacing: 1px;
+}
+
+.editor-content {
+  padding: 24px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.section-header h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--black);
+}
+
+.section-block {
+  margin-bottom: 32px;
+  padding: 20px;
+  background: #fafafa;
+  border-radius: 12px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #424242;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  transition: all 0.2s;
+  background: white;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.form-group textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.logo-upload {
+  border: 3px dashed #d0d0d0;
+  border-radius: 12px;
+  padding: 32px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: white;
+}
+
+.logo-upload:hover {
+  border-color: var(--gold);
+  background: #fffbf0;
+}
+
+.logo-upload.has-logo {
+  border-style: solid;
+  border-color: var(--gold);
+}
+
+.logo-preview {
+  max-width: 200px;
+  max-height: 100px;
+  margin: 0 auto 16px;
+  display: block;
+}
+
+.template-card-new {
+  padding: 20px;
+  border: 3px solid transparent;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.4s;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin-bottom: 16px;
+}
+
+.template-card-new:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+  border-color: rgba(212, 175, 55, 0.3);
+}
+
+.template-card-new.active {
+  border-color: var(--gold);
+  background: linear-gradient(135deg, #fffbf0 0%, #ffffff 100%);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.25);
+}
+
+.template-preview {
+  width: 100%;
+  height: 180px;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.template-preview::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+}
+
+.template-label {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  z-index: 1;
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.template-info h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--black);
+}
+
+.template-info p {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.template-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.template-tags span {
+  padding: 6px 12px;
+  background: linear-gradient(135deg, #f0f0f0, #e8e8e8);
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #424242;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.template-card-new.active .template-tags span {
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: white;
+}
+
+.dynamic-item {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  align-items: flex-start;
+}
+
+.dynamic-item input,
+.dynamic-item textarea {
+  flex: 1;
+}
+
+.btn-icon {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.btn-icon.btn-remove {
+  background: #ef4444;
+  color: white;
+}
+
+.btn-icon.btn-remove:hover {
+  background: #dc2626;
+  transform: scale(1.05);
+}
+
+.btn {
+  width: 100%;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: inherit;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
+
+.btn-secondary {
+  background: white;
+  color: var(--black);
+  border: 2px solid #e0e0e0;
+}
+
+.btn-secondary:hover {
+  border-color: var(--gold);
+  background: #fffbf0;
+}
+
+.button-group {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.preview-container {
+  overflow-y: auto;
+  max-height: 100vh;
+  background: #e5e7eb;
+  padding: 40px;
+}
+
+.sheet {
+  max-width: 1400px;
+  margin: 0 auto;
+  background: white;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  overflow: hidden;
+}
+
+/* ============================================
+   TEMPLATE 1: APPLE MINIMALIST
+   ============================================ */
+.apple-minimalist {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+}
+
+.apple-minimalist .hero-apple {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px 60px;
+  background: #fafafa;
+  position: relative;
+}
+
+.apple-minimalist .logo-apple {
+  max-width: 120px;
+  margin-bottom: 40px;
+  opacity: 0.9;
+}
+
+.apple-minimalist .hero-title-apple {
+  font-size: 88px;
+  font-weight: 700;
+  letter-spacing: -3px;
+  color: #1d1d1f;
+  margin-bottom: 24px;
+  line-height: 0.95;
+}
+
+.apple-minimalist .hero-subtitle-apple {
+  font-size: 32px;
+  font-weight: 400;
+  color: #6e6e73;
+  margin-bottom: 60px;
+  letter-spacing: -0.5px;
+}
+
+.apple-minimalist .hero-cta-apple {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.apple-minimalist .btn-apple {
+  padding: 16px 32px;
+  border-radius: 980px;
+  font-size: 17px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s;
+  border: none;
+  cursor: pointer;
+}
+
+.apple-minimalist .btn-apple-primary {
+  background: #0071e3;
+  color: white;
+}
+
+.apple-minimalist .btn-apple-primary:hover {
+  background: #0077ed;
+}
+
+.apple-minimalist .btn-apple-secondary {
+  background: transparent;
+  color: #0071e3;
+  border: 2px solid #0071e3;
+}
+
+.apple-minimalist .section-apple {
+  padding: 120px 60px;
+  background: white;
+}
+
+.apple-minimalist .section-apple:nth-child(even) {
+  background: #fafafa;
+}
+
+.apple-minimalist .section-title-apple {
+  font-size: 56px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 80px;
+  color: #1d1d1f;
+  letter-spacing: -2px;
+}
+
+.apple-minimalist .hotel-grid-apple {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.apple-minimalist .hotel-card-apple {
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.apple-minimalist .hotel-image-apple {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+.apple-minimalist .hotel-content-apple {
+  padding: 40px;
+}
+
+.apple-minimalist .hotel-title-apple {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #1d1d1f;
+  letter-spacing: -1px;
+}
+
+.apple-minimalist .hotel-meta-apple {
+  font-size: 17px;
+  color: #6e6e73;
+  margin-bottom: 8px;
+}
+
+.apple-minimalist .price-grid-apple {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.apple-minimalist .price-card-apple {
+  text-align: center;
+  padding: 60px 40px;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.apple-minimalist .price-label-apple {
+  font-size: 19px;
+  color: #6e6e73;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.apple-minimalist .price-value-apple {
+  font-size: 64px;
+  font-weight: 700;
+  color: #1d1d1f;
+  letter-spacing: -2px;
+}
+
+.apple-minimalist .services-grid-apple {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.apple-minimalist .service-card-apple {
+  text-align: center;
+  padding: 40px 30px;
+}
+
+.apple-minimalist .service-icon-apple {
+  font-size: 56px;
+  margin-bottom: 24px;
+}
+
+.apple-minimalist .service-title-apple {
+  font-size: 21px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #1d1d1f;
+}
+
+.apple-minimalist .service-desc-apple {
+  font-size: 17px;
+  color: #6e6e73;
+  line-height: 1.5;
+}
+
+.apple-minimalist .footer-apple {
+  padding: 60px;
+  text-align: center;
+  font-size: 15px;
+  color: #6e6e73;
+  background: #fafafa;
+  border-top: 1px solid #d2d2d7;
+}
+
+/* ============================================
+   TEMPLATE 2: MAGAZINE EDITORIAL
+   ============================================ */
+.magazine-editorial {
+  font-family: 'Libre Baskerville', serif;
+}
+
+.magazine-editorial .hero-magazine {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  background-size: cover;
+  background-position: center;
+  background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), 
+                    url('https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=1600');
+}
+
+.magazine-editorial .hero-content-magazine {
+  padding: 80px;
+  color: white;
+  max-width: 800px;
+}
+
+.magazine-editorial .issue-label {
+  font-size: 14px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  opacity: 0.9;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+}
+
+.magazine-editorial .hero-title-magazine {
+  font-size: 96px;
+  font-weight: 700;
+  line-height: 0.9;
+  margin-bottom: 32px;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.magazine-editorial .hero-subtitle-magazine {
+  font-size: 28px;
+  font-weight: 400;
+  font-style: italic;
+  margin-bottom: 48px;
+  opacity: 0.95;
+}
+
+.magazine-editorial .section-magazine {
+  padding: 100px 80px;
+}
+
+.magazine-editorial .section-title-magazine {
+  font-size: 72px;
+  font-weight: 700;
+  margin-bottom: 60px;
+  color: #1a1a1a;
+  border-bottom: 4px solid #1a1a1a;
+  padding-bottom: 24px;
+}
+
+.magazine-editorial .two-column-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 80px;
+}
+
+.magazine-editorial .column-text {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #2a2a2a;
+}
+
+.magazine-editorial .hotel-feature {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  gap: 0;
+  margin-bottom: 100px;
+  border: 1px solid #e0e0e0;
+}
+
+.magazine-editorial .hotel-feature:nth-child(even) {
+  grid-template-columns: 40% 60%;
+}
+
+.magazine-editorial .hotel-feature:nth-child(even) .hotel-content-magazine {
+  order: -1;
+}
+
+.magazine-editorial .hotel-image-magazine {
+  width: 100%;
+  height: 600px;
+  object-fit: cover;
+}
+
+.magazine-editorial .hotel-content-magazine {
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #fafafa;
+}
+
+.magazine-editorial .hotel-category {
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  color: #666;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+}
+
+.magazine-editorial .hotel-title-magazine {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  line-height: 1.1;
+  color: #1a1a1a;
+}
+
+.magazine-editorial .hotel-description {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #4a4a4a;
+  margin-bottom: 32px;
+}
+
+.magazine-editorial .price-showcase {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: #1a1a1a;
+  border: 2px solid #1a1a1a;
+}
+
+.magazine-editorial .price-card-magazine {
+  padding: 80px 40px;
+  text-align: center;
+  background: white;
+}
+
+.magazine-editorial .price-label-magazine {
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  color: #666;
+}
+
+.magazine-editorial .price-value-magazine {
+  font-size: 72px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.magazine-editorial .services-editorial {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 60px;
+}
+
+.magazine-editorial .service-item-magazine {
+  display: flex;
+  gap: 32px;
+  padding: 40px;
+  border-left: 4px solid #1a1a1a;
+  background: #fafafa;
+}
+
+.magazine-editorial .service-icon-magazine {
+  font-size: 48px;
+  flex-shrink: 0;
+}
+
+.magazine-editorial .service-content-magazine {
+  flex: 1;
+}
+
+.magazine-editorial .service-title-magazine {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #1a1a1a;
+}
+
+.magazine-editorial .service-desc-magazine {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #4a4a4a;
+  font-family: 'Inter', sans-serif;
+}
+
+.magazine-editorial .footer-magazine {
+  padding: 80px;
+  text-align: center;
+  border-top: 2px solid #1a1a1a;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #666;
+}
+
+/* ============================================
+   TEMPLATE 3: BRUTALIST LUXURY
+   ============================================ */
+.brutalist-luxury {
+  font-family: 'Space Grotesk', sans-serif;
+  background: #0a0a0a;
+  color: #ffffff;
+}
+
+.brutalist-luxury .hero-brutalist {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #0a0a0a;
+}
+
+.brutalist-luxury .hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 60px;
+  border-right: 2px solid #ffffff;
+}
+
+.brutalist-luxury .hero-right {
+  background-image: url('https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=1600');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.brutalist-luxury .hero-right::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, rgba(10,10,10,0.7) 0%, transparent 100%);
+}
+
+.brutalist-luxury .brand-brutalist {
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 8px;
+  margin-bottom: 60px;
+  text-transform: uppercase;
+}
+
+.brutalist-luxury .hero-title-brutalist {
+  font-size: 120px;
+  font-weight: 900;
+  line-height: 0.85;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  letter-spacing: -4px;
+}
+
+.brutalist-luxury .hero-description {
+  font-size: 24px;
+  line-height: 1.5;
+  margin-bottom: 60px;
+  opacity: 0.8;
+  max-width: 500px;
+}
+
+.brutalist-luxury .btn-brutalist {
+  display: inline-block;
+  padding: 24px 48px;
+  background: #ffffff;
+  color: #0a0a0a;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.brutalist-luxury .btn-brutalist:hover {
+  background: #d4af37;
+  color: #0a0a0a;
+  transform: translate(-4px, -4px);
+  box-shadow: 4px 4px 0 #ffffff;
+}
+
+.brutalist-luxury .section-brutalist {
+  padding: 120px 60px;
+  border-top: 2px solid #ffffff;
+}
+
+.brutalist-luxury .section-header-brutalist {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 80px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid #ffffff;
+}
+
+.brutalist-luxury .section-title-brutalist {
+  font-size: 72px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+}
+
+.brutalist-luxury .section-number {
+  font-size: 120px;
+  font-weight: 900;
+  opacity: 0.3;
+}
+
+.brutalist-luxury .hotel-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.brutalist-luxury .hotel-card-brutalist {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 2px solid #ffffff;
+  background: #0a0a0a;
+}
+
+.brutalist-luxury .hotel-card-brutalist:nth-child(even) {
+  grid-template-columns: 1fr 1fr;
+}
+
+.brutalist-luxury .hotel-card-brutalist:nth-child(even) .hotel-image-brutalist {
+  order: 2;
+}
+
+.brutalist-luxury .hotel-image-brutalist {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  border: 2px solid #ffffff;
+}
+
+.brutalist-luxury .hotel-info-brutalist {
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.brutalist-luxury .hotel-title-brutalist {
+  font-size: 56px;
+  font-weight: 900;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+}
+
+.brutalist-luxury .hotel-details {
+  font-size: 20px;
+  line-height: 1.8;
+  opacity: 0.8;
+  margin-bottom: 32px;
+}
+
+.brutalist-luxury .hotel-stats {
+  display: flex;
+  gap: 40px;
+  padding-top: 32px;
+  border-top: 2px solid rgba(255,255,255,0.3);
+}
+
+.brutalist-luxury .stat-item {
+  flex: 1;
+}
+
+.brutalist-luxury .stat-label {
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  opacity: 0.6;
+}
+
+.brutalist-luxury .stat-value {
+  font-size: 32px;
+  font-weight: 900;
+}
+
+.brutalist-luxury .price-grid-brutalist {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: #ffffff;
+}
+
+.brutalist-luxury .price-card-brutalist {
+  padding: 80px 40px;
+  text-align: center;
+  background: #0a0a0a;
+  border: 2px solid #ffffff;
+  position: relative;
+}
+
+.brutalist-luxury .price-card-brutalist::before {
+  content: attr(data-label);
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.brutalist-luxury .price-value-brutalist {
+  font-size: 96px;
+  font-weight: 900;
+  letter-spacing: -4px;
+}
+
+.brutalist-luxury .services-brutalist {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: #ffffff;
+}
+
+.brutalist-luxury .service-card-brutalist {
+  padding: 60px 40px;
+  background: #0a0a0a;
+  border: 2px solid #ffffff;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.brutalist-luxury .service-card-brutalist:hover {
+  background: #d4af37;
+  color: #0a0a0a;
+}
+
+.brutalist-luxury .service-icon-brutalist {
+  font-size: 64px;
+  margin-bottom: 24px;
+}
+
+.brutalist-luxury .service-title-brutalist {
+  font-size: 24px;
+  font-weight: 900;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.brutalist-luxury .service-desc-brutalist {
+  font-size: 16px;
+  line-height: 1.6;
+  opacity: 0.8;
+}
+
+.brutalist-luxury .footer-brutalist {
+  padding: 60px;
+  text-align: center;
+  border-top: 2px solid #ffffff;
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+/* ============================================
+   TEMPLATE 4: SWISS MODERN
+   ============================================ */
+.swiss-modern {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.swiss-modern .hero-swiss {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 80px;
+  background: #ffffff;
+}
+
+.swiss-modern .hero-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.swiss-modern .hero-content-swiss {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.swiss-modern .label-swiss {
+  font-size: 14px;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  font-weight: 700;
+  color: #ff0000;
+}
+
+.swiss-modern .hero-title-swiss {
+  font-size: 128px;
+  font-weight: 900;
+  line-height: 0.9;
+  margin-bottom: 40px;
+  letter-spacing: -6px;
+  color: #000000;
+}
+
+.swiss-modern .hero-description-swiss {
+  font-size: 24px;
+  line-height: 1.5;
+  color: #666666;
+  max-width: 600px;
+  margin-bottom: 60px;
+}
+
+.swiss-modern .hero-image-swiss {
+  width: 100%;
+  height: 700px;
+  object-fit: cover;
+  border: 4px solid #000000;
+}
+
+.swiss-modern .section-swiss {
+  padding: 120px 80px;
+}
+
+.swiss-modern .section-swiss:nth-child(even) {
+  background: #f5f5f5;
+}
+
+.swiss-modern .section-header-swiss {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 60px;
+  margin-bottom: 80px;
+  padding-bottom: 24px;
+  border-bottom: 4px solid #000000;
+}
+
+.swiss-modern .section-number-swiss {
+  font-size: 160px;
+  font-weight: 900;
+  line-height: 1;
+  color: #ff0000;
+}
+
+.swiss-modern .section-title-swiss {
+  display: flex;
+  align-items: center;
+  font-size: 72px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -3px;
+  color: #000000;
+}
+
+.swiss-modern .hotel-list-swiss {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+}
+
+.swiss-modern .hotel-item-swiss {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.swiss-modern .hotel-image-stack {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.swiss-modern .hotel-image-swiss {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border: 4px solid #000000;
+}
+
+.swiss-modern .hotel-image-swiss:first-child {
+  grid-column: 1 / -1;
+  height: 400px;
+}
+
+.swiss-modern .hotel-content-swiss {
+  padding: 40px;
+}
+
+.swiss-modern .hotel-meta-swiss {
+  font-size: 14px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  color: #ff0000;
+  font-weight: 700;
+}
+
+.swiss-modern .hotel-title-swiss {
+  font-size: 56px;
+  font-weight: 900;
+  margin-bottom: 24px;
+  letter-spacing: -2px;
+  color: #000000;
+}
+
+.swiss-modern .hotel-description-swiss {
+  font-size: 20px;
+  line-height: 1.6;
+  color: #666666;
+  margin-bottom: 32px;
+}
+
+.swiss-modern .hotel-specs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding-top: 24px;
+  border-top: 2px solid #000000;
+}
+
+.swiss-modern .spec-item {
+  text-align: center;
+}
+
+.swiss-modern .spec-value {
+  font-size: 32px;
+  font-weight: 900;
+  color: #000000;
+  margin-bottom: 8px;
+}
+
+.swiss-modern .spec-label {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #666666;
+}
+
+.swiss-modern .price-grid-swiss {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.swiss-modern .price-card-swiss {
+  border: 4px solid #000000;
+  padding: 80px 40px;
+  text-align: center;
+  background: #ffffff;
+  position: relative;
+}
+
+.swiss-modern .price-card-swiss::before {
+  content: '';
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  width: 40px;
+  height: 40px;
+  background: #ff0000;
+}
+
+.swiss-modern .price-label-swiss {
+  font-size: 16px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  font-weight: 700;
+  color: #000000;
+}
+
+.swiss-modern .price-value-swiss {
+  font-size: 96px;
+  font-weight: 900;
+  color: #000000;
+  letter-spacing: -4px;
+}
+
+.swiss-modern .services-grid-swiss {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  background: #000000;
+}
+
+.swiss-modern .service-card-swiss {
+  padding: 60px 40px;
+  background: #ffffff;
+  text-align: center;
+}
+
+.swiss-modern .service-icon-swiss {
+  font-size: 64px;
+  margin-bottom: 24px;
+}
+
+.swiss-modern .service-title-swiss {
+  font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #000000;
+}
+
+.swiss-modern .service-desc-swiss {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #666666;
+}
+
+.swiss-modern .footer-swiss {
+  padding: 80px;
+  text-align: center;
+  border-top: 4px solid #000000;
+  font-size: 14px;
+  color: #666666;
+}
+
+/* Loading & Toast */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.loading-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.loading-content {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid #e0e0e0;
+  border-top: 4px solid var(--gold);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: white;
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transform: translateY(150px);
+  opacity: 0;
+  transition: all 0.4s;
+  z-index: 10000;
+  font-weight: 500;
+}
+
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.toast.success { border-left: 4px solid #10b981; }
+.toast.error { border-left: 4px solid #ef4444; }
+
+@media print {
+  .editor-panel {
+    display: none;
+  }
+  
+  .app-container {
+    display: block;
+  }
+  
+  .preview-container {
+    padding: 0;
+    background: white;
+  }
+  
+  .sheet {
+    box-shadow: none;
+    max-width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-content">
+    <div class="spinner"></div>
+    <h3>Создание PDF...</h3>
+    <p style="margin-top: 8px; color: #666;">Пожалуйста, подождите</p>
+  </div>
+</div>
+
+<div class="app-container">
+  <div class="editor-panel">
+    <div class="editor-header">
+      <h1>ATLAS ULTIMATE</h1>
+      <p>Premium Design System</p>
+    </div>
+    
+    <div class="editor-content">
+      <!-- LOGO UPLOAD -->
+      <div class="section-block">
+        <div class="section-header">
+          <h3>📷 Логотип</h3>
+        </div>
+        <div class="logo-upload" id="logoUpload" style="border: 3px dashed #d0d0d0; border-radius: 12px; padding: 32px; text-align: center; cursor: pointer; background: white;">
+          <img id="logoPreview" class="logo-preview" style="display:none; max-width: 200px; max-height: 100px; margin: 0 auto 16px; display: block;">
+          <div style="font-size: 48px; margin-bottom: 12px; opacity: 0.3;" id="uploadIcon">📤</div>
+          <div style="font-size: 14px; color: #424242;" id="uploadText">
+            Нажмите для загрузки логотипа<br>
+            <small style="opacity:0.7;">PNG, JPG (макс. 2MB)</small>
+          </div>
+          <input type="file" id="logoInput" accept="image/*" style="display:none;">
+        </div>
+        <button class="btn btn-secondary" style="margin-top: 12px;" id="removeLogo">Удалить логотип</button>
+      </div>
+      
+      <!-- STRUCTURAL TEMPLATES -->
+      <div class="section-block">
+        <div class="section-header">
+          <h3>🎯 Структурные шаблоны</h3>
+        </div>
+        
+        <div class="template-card-new active" data-template="apple-minimalist">
+          <div class="template-preview" style="background: linear-gradient(135deg, #fafafa 0%, #e0e0e0 100%), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><text x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%2260%22 fill=%22%23999%22></text></svg>'); background-size: cover;">
+            <div class="template-label"></div>
+          </div>
+          <div class="template-info">
+            <h4>Apple Minimalist</h4>
+            <p>Чистый минимализм в стиле Apple. Огромная типографика, много воздуха, идеальные пропорции.</p>
+            <div class="template-tags">
+              <span>Minimal</span>
+              <span>Modern</span>
+              <span>Clean</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="template-card-new" data-template="magazine-editorial">
+          <div class="template-preview" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=800'); background-size: cover; background-position: center;">
+            <div class="template-label">EDITORIAL</div>
+          </div>
+          <div class="template-info">
+            <h4>Magazine Editorial</h4>
+            <p>Журнальная верстка с крупными изображениями, колонками текста и editorial стилем.</p>
+            <div class="template-tags">
+              <span>Editorial</span>
+              <span>Elegant</span>
+              <span>Story</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="template-card-new" data-template="brutalist-luxury">
+          <div class="template-preview" style="background: #0a0a0a; display: flex; align-items: center; justify-content: center; color: white; font-size: 48px; font-weight: 900;">
+            <div style="text-shadow: 4px 4px 0 #d4af37;">BRUTAL</div>
+          </div>
+          <div class="template-info">
+            <h4>Brutalist Luxury</h4>
+            <p>Брутализм встречает роскошь. Черный фон, мощная типографика, контрастные границы.</p>
+            <div class="template-tags">
+              <span>Bold</span>
+              <span>Dark</span>
+              <span>Luxury</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="template-card-new" data-template="swiss-modern">
+          <div class="template-preview" style="background: white; display: flex; align-items: center; justify-content: center;">
+            <div style="width: 80%; height: 80%; border: 6px solid #000; display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: 900; color: #ff0000;">SWISS</div>
+          </div>
+          <div class="template-info">
+            <h4>Swiss Modern</h4>
+            <p>Швейцарский модернизм. Строгая сетка, красные акценты, идеальная геометрия.</p>
+            <div class="template-tags">
+              <span>Grid</span>
+              <span>Precise</span>
+              <span>Modern</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- REST OF THE FORM -->
+      <div class="section-block">
+        <div class="section-header">
+          <h3>✨ Контент</h3>
+        </div>
+        <div class="form-group">
+          <label>Название компании</label>
+          <input type="text" id="brandName" value="ATLAS">
+        </div>
+        <div class="form-group">
+          <label>Слоган</label>
+          <input type="text" id="tagline" value="Premium Travel Services">
+        </div>
+        <div class="form-group">
+          <label>Название пакета</label>
+          <input type="text" id="packageTitle" value="Umrah 2025">
+        </div>
+        <div class="form-group">
+          <label>Подзаголовок</label>
+          <input type="text" id="packageSubtitle" value="Священное путешествие">
+        </div>
+      </div>
+      
+      <div class="section-block">
+        <div class="section-header">
+          <h3>🏨 Отели (упрощенно)</h3>
+        </div>
+        <div id="hotelsList"></div>
+        <button class="btn btn-secondary" id="addHotel">+ Добавить отель</button>
+      </div>
+      
+      <div class="section-block">
+        <div class="section-header">
+          <h3>💰 Цены</h3>
+        </div>
+        <div id="pricesList"></div>
+        <button class="btn btn-secondary" id="addPrice">+ Добавить цену</button>
+      </div>
+      
+      <div class="section-block">
+        <div class="section-header">
+          <h3>✅ Услуги</h3>
+        </div>
+        <div id="servicesList"></div>
+        <button class="btn btn-secondary" id="addService">+ Добавить услугу</button>
+      </div>
+      
+      <div class="button-group">
+        <button class="btn btn-secondary" id="saveConfig">💾 Сохранить</button>
+        <button class="btn btn-secondary" id="loadConfig">📂 Загрузить</button>
+        <button class="btn btn-primary" id="exportPdf">📥 PDF</button>
+        <button class="btn btn-secondary" id="printBtn">🖨️ Печать</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="preview-container">
+    <div class="sheet apple-minimalist" id="previewSheet">
+      <!-- Content rendered by JavaScript -->
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<script>
+let state = {
+  template: 'apple-minimalist',
+  logo: null,
+  brandName: 'ATLAS',
+  tagline: 'Premium Travel Services',
+  packageTitle: 'Umrah 2025',
+  packageSubtitle: 'Священное путешествие',
+  hotels: [
+    {
+      city: 'Мекка',
+      name: 'Swissôtel Makkah',
+      stars: 5,
+      rating: 9.2,
+      distance: '300м от Харама',
+      photo: 'https://images.unsplash.com/photo-1566073771259-6a8506099945'
+    },
+    {
+      city: 'Медина',
+      name: 'Mövenpick Hotel',
+      stars: 5,
+      rating: 9.3,
+      distance: '200м от мечети',
+      photo: 'https://images.unsplash.com/photo-1564501049412-61c2a3083791'
+    }
+  ],
+  prices: [
+    { label: '4-местный', value: '$1,500' },
+    { label: '3-местный', value: '$1,800' },
+    { label: '2-местный', value: '$2,200' }
+  ],
+  services: [
+    { icon: '✈️', title: 'Виза', desc: 'Полное оформление' },
+    { icon: '🍽️', title: 'Питание', desc: '3 раза в день' },
+    { icon: '🎒', title: 'Умра набор', desc: 'Всё необходимое' },
+    { icon: '💧', title: 'Замзам', desc: '5 литров' },
+    { icon: '👤', title: 'Гид', desc: 'Русскоязычный' },
+    { icon: '🚌', title: 'Экскурсии', desc: 'Святые места' }
+  ]
+};
+
+function showToast(msg, type = 'success') {
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.innerHTML = `<div style="font-size:24px;">${type === 'success' ? '✅' : '❌'}</div><div>${msg}</div>`;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.classList.add('show'), 100);
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 400);
+  }, 3000);
+}
+
+// Logo
+document.getElementById('logoUpload').addEventListener('click', () => document.getElementById('logoInput').click());
+document.getElementById('logoInput').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file || file.size > 2*1024*1024) return showToast('Файл слишком большой', 'error');
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    state.logo = e.target.result;
+    document.getElementById('logoPreview').src = state.logo;
+    document.getElementById('logoPreview').style.display = 'block';
+    document.getElementById('uploadIcon').style.display = 'none';
+    document.getElementById('uploadText').style.display = 'none';
+    render();
+    showToast('Логотип загружен');
+  };
+  reader.readAsDataURL(file);
+});
+
+document.getElementById('removeLogo').addEventListener('click', () => {
+  state.logo = null;
+  document.getElementById('logoPreview').style.display = 'none';
+  document.getElementById('uploadIcon').style.display = 'block';
+  document.getElementById('uploadText').style.display = 'block';
+  render();
+});
+
+// Templates
+document.querySelectorAll('.template-card-new').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('.template-card-new').forEach(c => c.classList.remove('active'));
+    card.classList.add('active');
+    state.template = card.dataset.template;
+    render();
+    showToast(`Шаблон "${card.querySelector('h4').textContent}" выбран`);
+  });
+});
+
+// Dynamic lists
+function renderHotels() {
+  document.getElementById('hotelsList').innerHTML = state.hotels.map((h, i) => `
+    <div style="margin-bottom:16px; padding:16px; background:white; border-radius:8px; border:1px solid #e0e0e0;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:12px;">
+        <strong>Отель ${i+1}</strong>
+        <button class="btn-icon btn-remove" onclick="state.hotels.splice(${i},1); renderHotels(); render();">🗑️</button>
+      </div>
+      <input type="text" placeholder="Город" value="${h.city}" style="margin-bottom:8px; width:100%; padding:8px; border:1px solid #e0e0e0; border-radius:6px;" onchange="state.hotels[${i}].city=this.value; render();">
+      <input type="text" placeholder="Название" value="${h.name}" style="margin-bottom:8px; width:100%; padding:8px; border:1px solid #e0e0e0; border-radius:6px;" onchange="state.hotels[${i}].name=this.value; render();">
+      <input type="text" placeholder="Описание" value="${h.distance}" style="margin-bottom:8px; width:100%; padding:8px; border:1px solid #e0e0e0; border-radius:6px;" onchange="state.hotels[${i}].distance=this.value; render();">
+      <input type="url" placeholder="Фото URL" value="${h.photo}" style="width:100%; padding:8px; border:1px solid #e0e0e0; border-radius:6px;" onchange="state.hotels[${i}].photo=this.value; render();">
+    </div>
+  `).join('');
+}
+
+function renderPrices() {
+  document.getElementById('pricesList').innerHTML = state.prices.map((p, i) => `
+    <div class="dynamic-item">
+      <input type="text" value="${p.label}" onchange="state.prices[${i}].label=this.value; render();">
+      <input type="text" value="${p.value}" onchange="state.prices[${i}].value=this.value; render();">
+      <button class="btn-icon btn-remove" onclick="state.prices.splice(${i},1); renderPrices(); render();">🗑️</button>
+    </div>
+  `).join('');
+}
+
+function renderServices() {
+  document.getElementById('servicesList').innerHTML = state.services.map((s, i) => `
+    <div style="margin-bottom:12px; padding:12px; background:white; border-radius:8px; border:1px solid #e0e0e0;">
+      <div style="display:flex; gap:8px; align-items:flex-start;">
+        <input type="text" value="${s.icon}" style="width:60px; padding:8px; border:1px solid #e0e0e0; border-radius:6px;" onchange="state.services[${i}].icon=this.value; render();">
+        <div style="flex:1;">
+          <input type="text" value="${s.title}" style="width:100%; margin-bottom:8px; padding:8px; border:1px solid #e0e0e0; border-radius:6px;" onchange="state.services[${i}].title=this.value; render();">
+          <input type="text" value="${s.desc}" style="width:100%; padding:8px; border:1px solid #e0e0e0; border-radius:6px;" onchange="state.services[${i}].desc=this.value; render();">
+        </div>
+        <button class="btn-icon btn-remove" onclick="state.services.splice(${i},1); renderServices(); render();">🗑️</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+document.getElementById('addHotel').onclick = () => {
+  state.hotels.push({city:'Город', name:'Отель', stars:5, rating:9.0, distance:'Расстояние', photo:'https://images.unsplash.com/photo-1566073771259-6a8506099945'});
+  renderHotels();
+  render();
+};
+
+document.getElementById('addPrice').onclick = () => {
+  state.prices.push({label:'Цена', value:'$0'});
+  renderPrices();
+  render();
+};
+
+document.getElementById('addService').onclick = () => {
+  state.services.push({icon:'⭐', title:'Услуга', desc:'Описание'});
+  renderServices();
+  render();
+};
+
+// Inputs
+['brandName','tagline','packageTitle','packageSubtitle'].forEach(id => {
+  document.getElementById(id).addEventListener('input', (e) => {
+    state[id] = e.target.value;
+    render();
+  });
+});
+
+// Render templates
+function render() {
+  const sheet = document.getElementById('previewSheet');
+  sheet.className = `sheet ${state.template}`;
+  
+  if (state.template === 'apple-minimalist') {
+    sheet.innerHTML = renderApple();
+  } else if (state.template === 'magazine-editorial') {
+    sheet.innerHTML = renderMagazine();
+  } else if (state.template === 'brutalist-luxury') {
+    sheet.innerHTML = renderBrutalist();
+  } else if (state.template === 'swiss-modern') {
+    sheet.innerHTML = renderSwiss();
+  }
+}
+
+function renderApple() {
+  const logo = state.logo ? `<img src="${state.logo}" class="logo-apple">` : '';
+  return `
+    <div class="hero-apple">
+      ${logo}
+      <h1 class="hero-title-apple">${state.packageTitle}</h1>
+      <p class="hero-subtitle-apple">${state.packageSubtitle}</p>
+      <div class="hero-cta-apple">
+        <button class="btn-apple btn-apple-primary">Забронировать</button>
+        <button class="btn-apple btn-apple-secondary">Узнать больше</button>
+      </div>
+    </div>
+    
+    <div class="section-apple">
+      <h2 class="section-title-apple">Отели</h2>
+      <div class="hotel-grid-apple">
+        ${state.hotels.map(h => `
+          <div class="hotel-card-apple">
+            <img src="${h.photo}" class="hotel-image-apple" crossorigin="anonymous">
+            <div class="hotel-content-apple">
+              <h3 class="hotel-title-apple">${h.city}: ${h.name}</h3>
+              <p class="hotel-meta-apple">${'★'.repeat(h.stars)} • ${h.distance}</p>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    
+    <div class="section-apple">
+      <h2 class="section-title-apple">Цены</h2>
+      <div class="price-grid-apple">
+        ${state.prices.map(p => `
+          <div class="price-card-apple">
+            <div class="price-label-apple">${p.label}</div>
+            <div class="price-value-apple">${p.value}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    
+    <div class="section-apple">
+      <h2 class="section-title-apple">Включено</h2>
+      <div class="services-grid-apple">
+        ${state.services.map(s => `
+          <div class="service-card-apple">
+            <div class="service-icon-apple">${s.icon}</div>
+            <h3 class="service-title-apple">${s.title}</h3>
+            <p class="service-desc-apple">${s.desc}</p>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    
+    <div class="footer-apple">© 2025 ${state.brandName}. ${state.tagline}</div>
+  `;
+}
+
+function renderMagazine() {
+  return `
+    <div class="hero-magazine">
+      <div class="hero-content-magazine">
+        <div class="issue-label">${state.brandName} • 2025</div>
+        <h1 class="hero-title-magazine">${state.packageTitle}</h1>
+        <p class="hero-subtitle-magazine">${state.packageSubtitle}</p>
+      </div>
+    </div>
+    
+    <div class="section-magazine">
+      <h2 class="section-title-magazine">Hotels</h2>
+      ${state.hotels.map((h, i) => `
+        <div class="hotel-feature">
+          <img src="${h.photo}" class="hotel-image-magazine" crossorigin="anonymous">
+          <div class="hotel-content-magazine">
+            <div class="hotel-category">${h.city}</div>
+            <h3 class="hotel-title-magazine">${h.name}</h3>
+            <p class="hotel-description">${'★'.repeat(h.stars)} • ${h.distance}</p>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+    
+    <div class="section-magazine">
+      <h2 class="section-title-magazine">Pricing</h2>
+      <div class="price-showcase">
+        ${state.prices.map(p => `
+          <div class="price-card-magazine">
+            <div class="price-label-magazine">${p.label}</div>
+            <div class="price-value-magazine">${p.value}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    
+    <div class="section-magazine">
+      <h2 class="section-title-magazine">Services</h2>
+      <div class="services-editorial">
+        ${state.services.map(s => `
+          <div class="service-item-magazine">
+            <div class="service-icon-magazine">${s.icon}</div>
+            <div class="service-content-magazine">
+              <h3 class="service-title-magazine">${s.title}</h3>
+              <p class="service-desc-magazine">${s.desc}</p>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    
+    <div class="footer-magazine">© 2025 ${state.brandName}</div>
+  `;
+}
+
+function renderBrutalist() {
+  return `
+    <div class="hero-brutalist">
+      <div class="hero-left">
+        <div class="brand-brutalist">${state.brandName}</div>
+        <h1 class="hero-title-brutalist">${state.packageTitle}</h1>
+        <p class="hero-description">${state.packageSubtitle}</p>
+        <button class="btn-brutalist">BOOK NOW</button>
+      </div>
+      <div class="hero-right"></div>
+    </div>
+    
+    <div class="section-brutalist">
+      <div class="section-header-brutalist">
+        <h2 class="section-title-brutalist">Hotels</h2>
+        <div class="section-number">01</div>
+      </div>
+      <div class="hotel-stack">
+        ${state.hotels.map(h => `
+          <div class="hotel-card-brutalist">
+            <img src="${h.photo}" class="hotel-image-brutalist" crossorigin="anonymous">
+            <div class="hotel-info-brutalist">
+              <h3 class="hotel-title-brutalist">${h.name}</h3>
+              <p class="hotel-details">${h.city} • ${h.distance}</p>
+              <div class="hotel-stats">
+                <div class="stat-item">
+                  <div class="stat-label">Rating</div>
+                  <div class="stat-value">${h.rating}</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Stars</div>
+                  <div class="stat-value">${h.stars}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    
+    <div class="section-brutalist">
+      <div class="section-header-brutalist">
+        <h2 class="section-title-brutalist">Prices</h2>
+        <div class="section-number">02</div>
+      </div>
+      <div class="price-grid-brutalist">
+        ${state.prices.map(p => `
+          <div class="price-card-brutalist" data-label="${p.label}">
+            <div class="price-value-brutalist">${p.value}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    
+    <div class="section-brutalist">
+      <div class="section-header-brutalist">
+        <h2 class="section-title-brutalist">Services</h2>
+        <div class="section-number">03</div>
+      </div>
+      <div class="services-brutalist">
+        ${state.services.map(s => `
+          <div class="service-card-brutalist">
+            <div class="service-icon-brutalist">${s.icon}</div>
+            <h3 class="service-title-brutalist">${s.title}</h3>
+            <p class="service-desc-brutalist">${s.desc}</p>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    
+    <div class="footer-brutalist">© 2025 ${state.brandName}</div>
+  `;
+}
+
+function renderSwiss() {
+  return `
+    <div class="hero-swiss">
+      <div class="hero-grid">
+        <div class="hero-content-swiss">
+          <div class="label-swiss">${state.brandName}</div>
+          <h1 class="hero-title-swiss">${state.packageTitle}</h1>
+          <p class="hero-description-swiss">${state.packageSubtitle}</p>
+        </div>
+        <img src="${state.hotels[0].photo}" class="hero-image-swiss" crossorigin="anonymous">
+      </div>
+    </div>
+    
+    <div class="section-swiss">
+      <div class="section-header-swiss">
+        <div class="section-number-swiss">01</div>
+        <h2 class="section-title-swiss">Hotels</h2>
+      </div>
+      <div class="hotel-list-swiss">
+        ${state.hotels.map(h => `
+          <div class="hotel-item-swiss">
+            <div class="hotel-image-stack">
+              <img src="${h.photo}" class="hotel-image-swiss" crossorigin="anonymous">
+              <img src="${h.photo}" class="hotel-image-swiss" crossorigin="anonymous">
+              <img src="${h.photo}" class="hotel-image-swiss" crossorigin="anonymous">
+            </div>
+            <div class="hotel-content-swiss">
+              <div class="hotel-meta-swiss">${h.city}</div>
+              <h3 class="hotel-title-swiss">${h.name}</h3>
+              <p class="hotel-description-swiss">${h.distance}</p>
+              <div class="hotel-specs">
+                <div class="spec-item">
+                  <div class="spec-value">${h.stars}</div>
+                  <div class="spec-label">Stars</div>
+                </div>
+                <div class="spec-item">
+                  <div class="spec-value">${h.rating}</div>
+                  <div class="spec-label">Rating</div>
+                </div>
+                <div class="spec-item">
+                  <div class="spec-value">5</div>
+                  <div class="spec-label">Nights</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    
+    <div class="section-swiss">
+      <div class="section-header-swiss">
+        <div class="section-number-swiss">02</div>
+        <h2 class="section-title-swiss">Prices</h2>
+      </div>
+      <div class="price-grid-swiss">
+        ${state.prices.map(p => `
+          <div class="price-card-swiss">
+            <div class="price-label-swiss">${p.label}</div>
+            <div class="price-value-swiss">${p.value}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    
+    <div class="section-swiss">
+      <div class="section-header-swiss">
+        <div class="section-number-swiss">03</div>
+        <h2 class="section-title-swiss">Services</h2>
+      </div>
+      <div class="services-grid-swiss">
+        ${state.services.map(s => `
+          <div class="service-card-swiss">
+            <div class="service-icon-swiss">${s.icon}</div>
+            <h3 class="service-title-swiss">${s.title}</h3>
+            <p class="service-desc-swiss">${s.desc}</p>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    
+    <div class="footer-swiss">© 2025 ${state.brandName} • ${state.tagline}</div>
+  `;
+}
+
+// Save/Load
+document.getElementById('saveConfig').onclick = () => {
+  const config = JSON.stringify(state, null, 2);
+  const blob = new Blob([config], {type: 'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `atlas-config-${Date.now()}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Сохранено');
+};
+
+document.getElementById('loadConfig').onclick = () => {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json';
+  input.onchange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const text = await file.text();
+    Object.assign(state, JSON.parse(text));
+    ['brandName','tagline','packageTitle','packageSubtitle'].forEach(id => {
+      document.getElementById(id).value = state[id];
+    });
+    document.querySelectorAll('.template-card-new').forEach(card => {
+      card.classList.toggle('active', card.dataset.template === state.template);
+    });
+    renderHotels();
+    renderPrices();
+    renderServices();
+    render();
+    showToast('Загружено');
+  };
+  input.click();
+};
+
+// PDF
+document.getElementById('exportPdf').onclick = async () => {
+  const overlay = document.getElementById('loadingOverlay');
+  try {
+    overlay.classList.add('active');
+    await document.fonts.ready;
+    await new Promise(r => setTimeout(r, 500));
+    
+    const canvas = await html2canvas(document.getElementById('previewSheet'), {
+      scale: 2,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: state.template === 'brutalist-luxury' ? '#0a0a0a' : '#ffffff',
+      logging: false
+    });
+    
+    const imgData = canvas.toDataURL('image/jpeg', 0.95);
+    const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+    const imgWidth = pdfWidth;
+    const imgHeight = (canvas.height * pdfWidth) / canvas.width;
+    
+    let heightLeft = imgHeight;
+    let position = 0;
+    
+    pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+    heightLeft -= pdfHeight;
+    
+    while (heightLeft > 0) {
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pdfHeight;
+    }
+    
+    pdf.save(`${state.brandName}_${state.template}_${Date.now()}.pdf`);
+    showToast('PDF создан!');
+  } catch (error) {
+    console.error(error);
+    showToast('Ошибка. Попробуйте Печать', 'error');
+  } finally {
+    overlay.classList.remove('active');
+  }
+};
+
+document.getElementById('printBtn').onclick = () => window.print();
+
+// Init
+renderHotels();
+renderPrices();
+renderServices();
+render();
+showToast('ATLAS Ultimate загружен!');
+</script>
+</body>
+</html>

@@ -861,7 +861,7 @@
         /* Brutalist Luxury */
         .template-brutalist {
             font-family: 'Space Grotesk', sans-serif;
-            background: #0a0a0a;
+            background: #000000;
             color: #ffffff;
             padding: 0;
         }
@@ -1099,7 +1099,7 @@
         }
         
         .template-swiss .header-right {
-            background: #ff0000;
+            background: #ffa742;
             color: #fff;
             padding: calc(var(--spacing-unit) * 6);
             display: flex;
@@ -1129,7 +1129,7 @@
             font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            color: #ff0000;
+            color: #ffa742;
             margin-bottom: calc(var(--spacing-unit) * 2);
             font-weight: 700;
         }
@@ -1164,7 +1164,7 @@
             font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            color: #ff0000;
+            color: #ffa742;
             margin-bottom: calc(var(--spacing-unit) * 1);
             font-weight: 700;
         }
@@ -1212,7 +1212,7 @@
         }
         
         .template-swiss .prices-module .section-label {
-            color: #ff0000;
+            color: #ffa742;
         }
         
         .template-swiss .prices-module .section-title {
@@ -1226,7 +1226,8 @@
         }
         
         .template-swiss .price-cell {
-            border: 2px solid #ff0000;
+            border: 2px solid #ffa742;
+            border-radius: 10px;
             padding: calc(var(--spacing-unit) * 4);
             text-align: center;
         }
@@ -1241,7 +1242,7 @@
         .template-swiss .price-cell .value {
             font-size: 48px;
             font-weight: 700;
-            color: #ff0000;
+            color: #ffa742;
         }
         
         .template-swiss .services-matrix {
@@ -2277,7 +2278,7 @@
                 </section>
                 
                 <!-- NEW: Transfer Section -->
-                <section class="form-section">
+                <section class="form-section" style="display: none;">
                     <h3 class="section-title">🚐 Трансфер и Гид</h3>
                     <div id="transferList"></div>
                     <button class="btn btn-secondary btn-small" id="addTransfer">+ Добавить</button>
@@ -2757,8 +2758,7 @@
                     
                     <div class="section-divider">◆◆◆</div>
                     
-                    <h3 class="section-heading">Трансфер и Гид</h3>
-                    <div class="transfer-ornate">${transfer}</div>
+                  
                 </div>
             `;
         }
@@ -2843,8 +2843,7 @@
                         
                         <div class="ornament-divider">◆ ◆ ◆</div>
                         
-                        <h3 class="section-title-kazakh">Трансфер и Сопровождение</h3>
-                        <div class="transfer-grid-kazakh">${transfer}</div>
+               
                     </div>
                 </div>
             `;
@@ -2941,12 +2940,6 @@
                             <h3 class="section-title-ultra">Included Services</h3>
                             <div class="services-ultra">${services}</div>
                         </div>
-                        
-                        <div class="section-label-ultra">Transfer</div>
-                        <div class="section-content-ultra">
-                            <h3 class="section-title-ultra">Transfer & Guide</h3>
-                            <div class="transfer-ultra">${transfer}</div>
-                        </div>
                     </div>
                 </div>
             `;
@@ -3021,9 +3014,6 @@
                     
                     <h3 class="section-heading-glass">Услуги</h3>
                     <div class="services-glass">${services}</div>
-                    
-                    <h3 class="section-heading-glass">Трансфер и Гид</h3>
-                    <div class="transfer-glass">${transfer}</div>
                 </div>
             `;
         }

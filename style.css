@@ -544,7 +544,7 @@ textarea {
 
 .template-apple .hotels-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     gap: calc(var(--spacing-unit) * 3);
     margin-bottom: calc(var(--spacing-unit) * 8);
 }
@@ -601,7 +601,7 @@ textarea {
 
 .template-apple .prices-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     gap: calc(var(--spacing-unit) * 3);
     margin-bottom: calc(var(--spacing-unit) * 8);
 }
@@ -627,7 +627,7 @@ textarea {
 
 .template-apple .services-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: calc(var(--spacing-unit) * 3);
 }
 
@@ -791,7 +791,7 @@ textarea {
 
 .template-magazine .prices-row {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     gap: calc(var(--spacing-unit) * 4);
     max-width: 1000px;
     margin: 0 auto;
@@ -820,7 +820,7 @@ textarea {
 
 .template-magazine .services-columns {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: calc(var(--spacing-unit) * 4);
     margin-top: calc(var(--spacing-unit) * 6);
 }
@@ -920,7 +920,7 @@ textarea {
 
 .template-brutalist .hotels-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     gap: calc(var(--spacing-unit) * 4);
 }
 
@@ -991,7 +991,7 @@ textarea {
 
 .template-brutalist .prices-flex {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     gap: calc(var(--spacing-unit) * 4);
 }
 
@@ -1017,7 +1017,7 @@ textarea {
 
 .template-brutalist .services-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: calc(var(--spacing-unit) * 4);
 }
 
@@ -1208,12 +1208,12 @@ textarea {
 
 .template-swiss .prices-table {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     gap: calc(var(--spacing-unit) * 3);
 }
 
 .template-swiss .price-cell {
-    border: 2px solid #ffa742;
+    border: 2px solid #ffffff;
     border-radius: 10px;
     padding: calc(var(--spacing-unit) * 4);
     text-align: center;
@@ -1234,7 +1234,7 @@ textarea {
 
 .template-swiss .services-matrix {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: calc(var(--spacing-unit) * 3);
 }
 
@@ -1414,7 +1414,7 @@ textarea {
 
 .template-desert .prices-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     gap: calc(var(--spacing-unit) * 3);
 }
 
@@ -1444,7 +1444,7 @@ textarea {
 .template-desert .services-ornate,
 .template-desert .transfer-ornate {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: calc(var(--spacing-unit) * 3);
 }
 
@@ -1481,7 +1481,7 @@ textarea {
 /* === NEW: Kazakh Ornate === */
 .template-kazakh {
     font-family: 'Playfair Display', serif;
-    background: linear-gradient(to bottom, #001f3f 0%, #003366 100%);
+    background: linear-gradient(to bottom, #001f3f 0%, #000000 100%);
     color: white;
     padding: 0;
 }
@@ -1651,7 +1651,7 @@ textarea {
 
 .template-kazakh .prices-grid-kazakh {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     gap: calc(var(--spacing-unit) * 4);
 }
 
@@ -1681,7 +1681,7 @@ textarea {
 .template-kazakh .services-grid-kazakh,
 .template-kazakh .transfer-grid-kazakh {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: calc(var(--spacing-unit) * 4);
 }
 
@@ -1893,7 +1893,7 @@ textarea {
 
 .template-ultra .prices-ultra {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     gap: calc(var(--spacing-unit) * 2);
 }
 
@@ -1918,7 +1918,7 @@ textarea {
 .template-ultra .services-ultra,
 .template-ultra .transfer-ultra {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: calc(var(--spacing-unit) * 2);
 }
 
@@ -2024,7 +2024,7 @@ textarea {
 
 .template-glass .hotels-glass {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     gap: calc(var(--spacing-unit) * 4);
     margin-bottom: calc(var(--spacing-unit) * 6);
 }
@@ -2080,7 +2080,7 @@ textarea {
 
 .template-glass .prices-glass {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     gap: calc(var(--spacing-unit) * 3);
     margin-bottom: calc(var(--spacing-unit) * 6);
 }
@@ -2113,7 +2113,7 @@ textarea {
 .template-glass .services-glass,
 .template-glass .transfer-glass {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: calc(var(--spacing-unit) * 3);
 }
 

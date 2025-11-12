@@ -193,7 +193,7 @@
                     </div>
                     
                     <div class="content">
-                        <h2 class="section-title">Размещение</h2>
+                        <h2 class="section-title">Отели</h2>
                         ${hotels}
                         
                         <div class="prices-showcase">

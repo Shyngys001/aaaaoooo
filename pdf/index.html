@@ -85,7 +85,6 @@
                           <p>Швейцарская сетка</p>
                       </div>
               
-                      <!-- NEW: 4 additional templates -->
                       <div class="template-card" data-template="desert-classic">
                           <h4>Desert Classic</h4>
                           <p>Восточные узоры</p>
@@ -103,7 +102,6 @@
                           <p>Стеклянные панели</p>
                       </div>
               
-                      <!-- NEW: 3 more templates (modern, minimal, premium)
                       <div class="template-card" data-template="elegant-serif">
                           <h4>Elegant Serif</h4>
                           <p>Премиальный шрифт</p>
@@ -115,22 +113,36 @@
                       <div class="template-card" data-template="soft-luxury">
                           <h4>Soft Luxury</h4>
                           <p>Пастель и отступы</p>
-                      </div> -->
+                      </div>
                   </div>
               </section>
                 
-                <!-- Hotels -->
+                <!-- Hotels with Auto-fill -->
                 <section class="form-section">
                     <h3 class="section-title">Отели</h3>
                     <div id="hotelsList"></div>
                     <button class="btn btn-secondary btn-small" id="addHotel">+ Добавить отель</button>
                 </section>
                 
-                <!-- Prices -->
+                <!-- Prices as List -->
                 <section class="form-section">
                     <h3 class="section-title">Цены</h3>
                     <div id="pricesList"></div>
                     <button class="btn btn-secondary btn-small" id="addPrice">+ Добавить цену</button>
+                </section>
+                
+                <!-- Transfers -->
+                <section class="form-section">
+                    <h3 class="section-title">Трансферы</h3>
+                    <div id="transfersList"></div>
+                    <button class="btn btn-secondary btn-small" id="addTransfer">+ Добавить трансфер</button>
+                </section>
+                
+                <!-- Flights -->
+                <section class="form-section">
+                    <h3 class="section-title">Вылеты / Прилёты</h3>
+                    <div id="flightsList"></div>
+                    <button class="btn btn-secondary btn-small" id="addFlight">+ Добавить рейс</button>
                 </section>
                 
                 <!-- Services -->
@@ -138,13 +150,6 @@
                     <h3 class="section-title">Услуги</h3>
                     <div id="servicesList"></div>
                     <button class="btn btn-secondary btn-small" id="addService">+ Добавить услугу</button>
-                </section>
-                
-                <!-- NEW: Transfer Section -->
-                <section class="form-section" style="display: none;">
-                    <h3 class="section-title">🚐 Трансфер и Гид</h3>
-                    <div id="transferList"></div>
-                    <button class="btn btn-secondary btn-small" id="addTransfer">+ Добавить</button>
                 </section>
                 
                 <!-- Actions -->
@@ -157,6 +162,7 @@
                     <div class="button-group" style="margin-top: 16px;">
                         <button class="btn btn-secondary btn-small" id="saveJSON">💾 Сохранить</button>
                         <button class="btn btn-secondary btn-small" id="loadJSON">📂 Загрузить</button>
+                        <button class="btn btn-secondary btn-small" id="openAdmin">⚙️ Админ</button>
                     </div>
                     <input type="file" id="jsonInput" accept=".json" style="display: none;">
                 </section>
@@ -167,6 +173,45 @@
         <main class="preview-container">
             <div id="previewSheet"></div>
         </main>
+    </div>
+    
+    <!-- Admin Modal -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⚙️ Администрирование справочников</h2>
+                <button class="btn btn-icon" id="closeAdmin">✕</button>
+            </div>
+            <div class="modal-body">
+                <!-- Hotels Directory -->
+                <div class="admin-section">
+                    <h3>🏨 Справочник отелей</h3>
+                    <div id="adminHotelsList"></div>
+                    <button class="btn btn-secondary btn-small" id="addAdminHotel">+ Добавить отель</button>
+                </div>
+                
+                <!-- Transfer Options Directory -->
+                <div class="admin-section">
+                    <h3>🚐 Типы трансферов</h3>
+                    <div id="adminTransferOptions"></div>
+                    <button class="btn btn-secondary btn-small" id="addTransferOption">+ Добавить тип</button>
+                </div>
+                
+                <!-- Import/Export -->
+                <div class="admin-section">
+                    <h3>💾 Импорт / Экспорт справочников</h3>
+                    <div class="button-group">
+                        <button class="btn btn-secondary btn-small" id="exportDirectories">Экспорт JSON</button>
+                        <button class="btn btn-secondary btn-small" id="importDirectories">Импорт JSON</button>
+                    </div>
+                    <input type="file" id="directoriesInput" accept=".json" style="display: none;">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="saveAdmin">Сохранить изменения</button>
+                <button class="btn btn-secondary" id="cancelAdmin">Отмена</button>
+            </div>
+        </div>
     </div>
     
     <!-- Toast -->

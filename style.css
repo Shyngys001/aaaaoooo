@@ -560,12 +560,13 @@ textarea {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2px;
-    min-height: 250px;
+    min-height: 300px;
 }
 
 .template-apple .hotel-photo {
     width: 100%;
     height: 100%;
+    max-height: 300px;
     object-fit: cover;
 }
 
@@ -2043,12 +2044,13 @@ textarea {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2px;
-    min-height: 250px;
+    min-height: 300px;
 }
 
 .template-glass .hotel-photos-glass img {
     width: 100%;
     height: 100%;
+    max-height: 300px;
     object-fit: cover;
 }
 

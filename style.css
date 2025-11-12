@@ -560,7 +560,7 @@ textarea {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2px;
-    height: 240px;
+    min-height: 250px;
 }
 
 .template-apple .hotel-photo {
@@ -2043,7 +2043,7 @@ textarea {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2px;
-    height: 250px;
+    min-height: 250px;
 }
 
 .template-glass .hotel-photos-glass img {

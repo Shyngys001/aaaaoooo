@@ -76,6 +76,293 @@
         function getStars(count) {
             return '⭐'.repeat(count);
         }
+
+
+        /* ====== HOTEL CATALOG (можно расширять) ====== */
+const HOTELS_CATALOG = [
+    {
+      id: "fairmont",
+      city: "Мекка",
+      name: "Fairmont",
+      stars: 5,
+      rating: 9.2,
+      distance: "300м от Харама",
+      photos: [
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/764178426.jpg?k=2a90a6ad1f8167cd8045a9e360c520148e91f5f0cad20b181300a709544fdb3c&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/764178438.jpg?k=73406437c802456186d8969f45bf6e31a6f0451559a5ca4742695ce85497796e&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/764178491.jpg?k=9d7f10cdfb8c9e613bf4502905ccbd5f69257d656a4fd60f9508ccd85a26e041&o="
+      ]
+    },
+    {
+      id: "swissotel-makkah",
+      city: "Мекка",
+      name: "Swissotel Makkah",
+      stars: 5,
+      rating: 9.0,
+      distance: "200м от Харама",
+      photos: [
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/752196698.jpg?k=af0c15818df3ce1b93c879a65811b26d40b8e872612c1140d8a991d2a36ea267&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/752196867.jpg?k=e54df9c83cf2fe7b55e6c2573819ee871037c467b8f37e7b89b74e21ed8c9aa7&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/752195549.jpg?k=632f0e7aa190750612dae40e5a630770954d1610f93c7b5f74598a2a5f5deefd&o="
+      ]
+    },
+    {
+      id: "shohada",
+      city: "Мекка",
+      name: "Shohada",
+      stars: 5,
+      rating: 9.1,
+      distance: "120м от Масджид ан-Набави",
+      photos: [
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/666168206.jpg?k=5f8dc2a307f8f153e104c03a3a2dc6b8611dbcca3987846426db3e1682a99f29&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/666168623.jpg?k=82abc89e24bed8356ec49305eb51917b61ba3d8fde0e9ed6d998fc4fa61d7875&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/745771699.jpg?k=64d3b984d1eaa6b5ff8159239683177f91cb85ba6443610d0d6a74d6f16b7edb&o="
+      ]
+    },
+    {
+      id: "courtyard-by-marriot",
+      city: "Мекка",
+      name: "Courtyard by Marriot",
+      stars: 5,
+      rating: 9.0,
+      distance: "150м от Масджид ан-Набави",
+      photos: [
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/536428550.jpg?k=d8c4c353a2b9e4c157f96f12166bf5b124bca1cf10b78d1a6013d54d3479cb44&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/536428970.jpg?k=54df7c11f3243fa5907e682b0f53330b7a0de5b686f4c822a5c4466f96863230&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/498052247.jpg?k=4fb1ac5ee43a9d82f5c360031f78c8073cfdd349b27a3500f43f3de7502d83d1&o="
+      ]
+    },
+    {
+      id: "adress-jabal-omar",
+      city: "Мекка",
+      name: "Adress Jabal Omar",
+      stars: 5,
+      rating: 9.0,
+      distance: "150м от Масджид ан-Набави",
+      photos: [
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/478051386.jpg?k=8395e89479512fb40aa70a15e388dd4add128d7f12160d430293069a9892a8e7&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/536428867.jpg?k=efade30011535460bc3663380c91b3c1d9308123b308c1ffaacfe41a3a8dcddf&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/478069271.jpg?k=8fe57f2b1d72a52d685b5ed27aafe7880d7c3f3c06cb978f153cc53e78cd8981&o="
+      ]
+    },
+    {
+      id: "saja-makkah",
+      city: "Мекка",
+      name: "Saja Makkah",
+      stars: 4,
+      rating: 9.0,
+      distance: "",
+      photos: [
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/536441362.jpg?k=d5ea120c3cc85aacb22c968d422fa883feda96a89eb984ece5fc9bfe2c98cfcc&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/531457092.jpg?k=cc39d4458109706f5c9461e5d0ac63daba5102e97385e59d11009ba1dc6025a3&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/587703140.jpg?k=165ac16a37a4ee3d7b67bcc7b72d4957ab49aefbe7d9d4a998ec78f2fa9f6c81&o="
+      ]
+    },
+    {
+      id: "le-meridien-towers-makkah",
+      city: "Мекка",
+      name: "Le Méridien Towers Makkah",
+      stars: 5,
+      rating: 9.0,
+      distance: "",
+      photos: [
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/630021248.jpg?k=a86aa583150312edcd1f300287685618fd97fb9ed7abdc485560437b3bad5631&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/630021274.jpg?k=a2c79fd88f8f9c12186ff5f38f81de59a988cdb84ce2066ee57d56e6cf79a879&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/630021263.jpg?k=f9832af9c20594010576aafd43e1b7a6ccbbc6ad160f1764d7c42478476ce669&o="
+    ]
+    },
+    {
+      id: "emaar-elite-makkah",
+      city: "Мекка",
+      name: "Emaar Elite Makkah",
+      stars: 4,
+      rating: 9.0,
+      distance: "",
+      photos: [
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/574967045.jpg?k=42f84cef1488b4b446d82c7777b8b3bb6777d3a0f6ab889bf98edc4e7fca4236&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/574967053.jpg?k=aaa74304174b5041fc7b3c96a318b9190a78279b1b01a11570e005b4f29f3400&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/573191781.jpg?k=45d2958aaf7f0b5919df16341c09a02c4cfbcd0766b961e1fe01094b58af748c&o="
+      ]
+    },
+    {
+      id: "kudi-tower-makkah",
+      city: "Мекка",
+      name: "Kudi Tower Makkah",
+      stars: 4,
+      rating: 9.0,
+      distance: "",
+      photos: [
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/590845970.jpg?k=d9955871a38a018f502028a3adb71a2ff22bead30d0f9e8f3eb5e5fbf1ac9257&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/587485887.jpg?k=4410992df6aca7c5ad08868b03f61b0683f7868bcb2be1a7fea41225c488164b&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/587485948.jpg?k=49f24167afbd4eb45e62451c4e15244d78e3a08d7b7960ae9af620af0a9270f9&o="
+      ]
+    },
+    
+    // ======== Медина ========
+    
+    {
+      id: "waqf-al-safi",
+      city: "Медина",
+      name: "Waqf Al Safi",
+      stars: 4,
+      rating: 9.0,
+      distance: "",
+      photos: [
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/192369485.jpg?k=50edd469e30a2321dbea8e9d4b6fd68c432728834324dabb55259dc422e7f9de&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/598780650.jpg?k=f1547e455dd23bba069a9f790d8f3495f386d75589941ce209725548c5027d7e&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/192970876.jpg?k=5dded56d92e3ae01cc95a3353f0c1f90625bbd2485e808de7dd05398124ca6cd&o="
+      ]
+    },
+    {
+      id: "worth-peninsula",
+      city: "Медина",
+      name: "Worth Peninsula",
+      stars: 4,
+      rating: 9.0,
+      distance: "",
+      photos: [
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/680693366.jpg?k=b96183cc5dbfd03066e7f9d8cc18edac86eb978896fcdd71b0d7a26067d4047c&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/645316559.jpg?k=5285080ba2c28ca72b2855bbd5350a25c76f59072e67214b83c190ec54ffebf2&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/645320730.jpg?k=e039b88b4ec37fc043d3212d5f8ea35dabafadf8168d14eff7d97dd41c6094cc&o="
+      ]
+    },
+    {
+      id: "emaar-royal-madinah",
+      city: "Медина",
+      name: "Emaar Royal Madinah",
+      stars: 5,
+      rating: 9.0,
+      distance: "",
+      photos: [
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/678861402.jpg?k=cf12e415bc21aaff87a597e205cefff21ef39ab85e275912912bf68e4145e183&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/691227799.jpg?k=55894e26b7d7536768ea44000ab16ee8029b88d8942378bf84dda947151e0576&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/678867539.jpg?k=2af835dd2c1f36b97bccc2e1e0f21380958686bb06f154f77116920137e1836b&o="
+      ]
+    },
+    {
+      id: "emaar-mektan",
+      city: "Медина",
+      name: "Emaar Mektan",
+      stars: 4,
+      rating: 9.0,
+      distance: "",
+      photos: [
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/738801950.jpg?k=5f099430cec0a4534cf14263223ed43a239374859f6cff13e137d3d8c3a4e387&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/739692730.jpg?k=39a122c69bd4987a43c8c7b264d0f7c606ab5e0a1abc79474aea33543fdb1664&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/739692686.jpg?k=d472671825ae9fda4571cc2c7b9efc5f4593c069a0d7eb5272a7b69d7f47fda9&o="
+      ]
+    },
+    {
+      id: "emaar-elite-madinah",
+      city: "Медина",
+      name: "Emaar Elite Madinah",
+      stars: 4,
+      rating: 9.0,
+      distance: "",
+      photos: [
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/739683059.jpg?k=3e66d97187c95f3fbc6a593c7614372cd4c051731e2823ace80635ea76128ccb&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/739683173.jpg?k=96af9f97a3b7c9accbc4a8b8fcb2e32db772272416e909d4e85fa8242d2dd7e2&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/739683044.jpg?k=d9f37a0c590209ae8c2db2217fcf3a4c065ed18198bb80fd7f13a0427cb2d071&o="
+      ]
+    },
+    {
+      id: "saraya-taba",
+      city: "Медина",
+      name: "Saraya Taba Hotel",
+      stars: 3,
+      rating: 8.8,
+      distance: "",
+      photos: [
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/353225738.jpg?k=f41a355786f60ebd724b4c6cf07fd03faa8fd0ccdbe7874ac2721bbd7208cd8d&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/337234378.jpg?k=e1e0d73d8b8dec3bfa8f7d6bb0e56fb0181e7f2c33b715ed6343ba466ffea0bc&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/20291833.jpg?k=134bc865776105645e0b6c5053caccf7160c13fcf5e89e27e6f51e8a9de960fe&o="
+      ]
+    },
+    {
+      id: "grand-al-safi-madinah",
+      city: "Медина",
+      name: "Grand Al Safi Madinah",
+      stars: 4,
+      rating: 9.0,
+      distance: "",
+      photos: [
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/333033035.jpg?k=b0019306d767aa2f4403d5c2176e4b947a076d9573cb260c4b343e3be8fef149&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/333033061.jpg?k=ac7d307a52f11769c04e95dc7ffa08ece6f9f86439cd29b879bce69ce384a080&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/383241948.jpg?k=7191fa3a6be1abbc5d5d77a309f17a9b23c14a939216782a67a6257c81273a2a&o="
+      ]
+    },
+    {
+      id: "vali-hotel-madinah",
+      city: "Медина",
+      name: "Vali Hotel Madinah",
+      stars: 4,
+      rating: 9.0,
+      distance: "",
+      photos: [
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/569223100.jpg?k=51c02e151a15fb9e11ea370feb761e4ad46c01a2a99ec50426e8a36a318d4130&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/472065943.jpg?k=80e24c08659742c45c5a9453c28478431e6eb40e421d4a7bb2a90dc0d1397856&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/472065261.jpg?k=0bbb90aef2e76f5af54bd8472ce7b47a47b839be6da59663d780d8b060b8269c&o="
+      ]
+    },
+    {
+      id: "nusl-al-hijr-madinah",
+      city: "Медина",
+      name: "Nusl Al Hijr Madinah",
+      stars: 4,
+      rating: 9.0,
+      distance: "",
+      photos: [
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/690134377.jpg?k=d001048dbc696206491cf2ff7ae0597de82962401de73d4a29fc76ccc922fc8e&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/430322085.jpg?k=1739224786e81630668866750d037c443576c457d574b32506b4705a6ba37829&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/428224148.jpg?k=3196dbb261bb49144750f645f49ecbefbbe18501e07f6b51fee9b60456bdf067&o="
+      ]
+    },
+    {
+      id: "le-bosphorus-hotel-two",
+      city: "Медина",
+      name: "Le Bosphorus Hotel Two",
+      stars: 4,
+      rating: 9.0,
+      distance: "",
+      photos: [
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/675545258.jpg?k=1c45915fd6e35a81d40ebce8f18987e3ffe911c308333b01475d8eb6091bb0b5&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/223630491.jpg?k=f308615c56a789a4c9a5754168556c3aaf8e08a1ac63f9e01306b52b963c8409&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/224785651.jpg?k=c9eac136b2d9f775e372206255f317981602045bb1a67ad0e3d6cd3772b0ee62&o="
+      ]
+    }
+  ];
+  
+  /* === helpers === */
+  function catalogFindById(id){ return HOTELS_CATALOG.find(h=>h.id===id)||null; }
+  function catalogMatchByStateHotel(h){
+    return HOTELS_CATALOG.find(x=>x.name===h.name && x.city===h.city) || null;
+  }
+  function buildHotelSelectOptionsHTML(){
+    const byCity = HOTELS_CATALOG.reduce((a,h)=>((a[h.city]??=[]).push(h),a),{});
+    let html = `<option value="__custom__">— Свой отель (ручной ввод)</option>`;
+    Object.entries(byCity).forEach(([city,list])=>{
+      html += `<optgroup label="${city}">` +
+        list.map(h=>`<option value="${h.id}">${h.name}</option>`).join('') +
+        `</optgroup>`;
+    });
+    return html;
+  }
+  function lockHotelInputs(itemEl, locked){
+    itemEl.querySelectorAll('input[type="text"],input[type="number"],input[type="url"]')
+      .forEach(inp => locked ? inp.setAttribute('readonly','readonly') : inp.removeAttribute('readonly'));
+  }
+  function applyPresetToState(idx, preset){
+    if(!preset) return;
+    state.hotels[idx] = {
+      city: preset.city,
+      name: preset.name,
+      stars: preset.stars,
+      rating: preset.rating,
+      distance: preset.distance,
+      photos: [...(preset.photos||[])]
+    };
+  }
+
         
         // === RENDER TEMPLATES ===
         function renderAppleMinimalist() {
@@ -741,51 +1028,83 @@
         }
         
         // === EDITOR UI ===
-        function renderHotelsList() {
-            const list = document.getElementById('hotelsList');
-            list.innerHTML = state.hotels.map((hotel, idx) => `
-                <div class="list-item">
-                    <div class="list-item-header">
-                        <span class="list-item-title">Отель ${idx + 1}</span>
-                        <button class="btn btn-icon btn-delete" onclick="removeHotel(${idx})">🗑️</button>
-                    </div>
-                    <div class="form-group">
-                        <label>Город</label>
-                        <input type="text" value="${hotel.city}" oninput="updateHotel(${idx}, 'city', this.value)">
-                    </div>
-                    <div class="form-group">
-                        <label>Название</label>
-                        <input type="text" value="${hotel.name}" oninput="updateHotel(${idx}, 'name', this.value)">
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Звёзды</label>
-                            <input type="number" min="1" max="5" value="${hotel.stars}" oninput="updateHotel(${idx}, 'stars', parseInt(this.value))">
-                        </div>
-                        <div class="form-group">
-                            <label>Рейтинг</label>
-                            <input type="number" step="0.1" value="${hotel.rating}" oninput="updateHotel(${idx}, 'rating', parseFloat(this.value))">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Расстояние</label>
-                        <input type="text" value="${hotel.distance}" oninput="updateHotel(${idx}, 'distance', this.value)">
-                    </div>
-                    <div class="form-group">
-                        <label>Фото 1 (URL)</label>
-                        <input type="url" value="${hotel.photos[0] || ''}" oninput="updateHotelPhoto(${idx}, 0, this.value)">
-                    </div>
-                    <div class="form-group">
-                        <label>Фото 2 (URL)</label>
-                        <input type="url" value="${hotel.photos[1] || ''}" oninput="updateHotelPhoto(${idx}, 1, this.value)">
-                    </div>
-                    <div class="form-group">
-                        <label>Фото 3 (URL)</label>
-                        <input type="url" value="${hotel.photos[2] || ''}" oninput="updateHotelPhoto(${idx}, 2, this.value)">
-                    </div>
-                </div>
-            `).join('');
-        }
+       function renderHotelsList() {
+  const list = document.getElementById('hotelsList');
+  list.innerHTML = state.hotels.map((hotel, idx) => `
+    <div class="list-item" data-hotel-item data-idx="${idx}">
+      <div class="list-item-header">
+        <span class="list-item-title">Отель ${idx + 1}</span>
+        <button class="btn btn-icon btn-delete" onclick="removeHotel(${idx})">🗑️</button>
+      </div>
+
+      <!-- НОВОЕ: выбор из каталога -->
+      <div class="form-group">
+        <label>Выбрать из каталога</label>
+        <select class="select hotel-select" data-select-idx="${idx}">
+          ${buildHotelSelectOptionsHTML()}
+        </select>
+        <small class="muted">Выберите готовый отель или «Свой отель» для ручного ввода</small>
+      </div>
+
+      <div class="form-group">
+        <label>Город</label>
+        <input type="text" value="${hotel.city}" oninput="updateHotel(${idx}, 'city', this.value)">
+      </div>
+      <div class="form-group">
+        <label>Название</label>
+        <input type="text" value="${hotel.name}" oninput="updateHotel(${idx}, 'name', this.value)">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Звёзды</label>
+          <input type="number" min="1" max="5" value="${hotel.stars}" oninput="updateHotel(${idx}, 'stars', parseInt(this.value))">
+        </div>
+        <div class="form-group">
+          <label>Рейтинг</label>
+          <input type="number" step="0.1" value="${hotel.rating}" oninput="updateHotel(${idx}, 'rating', parseFloat(this.value))">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Расстояние</label>
+        <input type="text" value="${hotel.distance}" oninput="updateHotel(${idx}, 'distance', this.value)">
+      </div>
+      <div class="form-group">
+        <label>Фото 1 (URL)</label>
+        <input type="url" value="${hotel.photos[0] || ''}" oninput="updateHotelPhoto(${idx}, 0, this.value)">
+      </div>
+      <div class="form-group">
+        <label>Фото 2 (URL)</label>
+        <input type="url" value="${hotel.photos[1] || ''}" oninput="updateHotelPhoto(${idx}, 1, this.value)">
+      </div>
+      <div class="form-group">
+        <label>Фото 3 (URL)</label>
+        <input type="url" value="${hotel.photos[2] || ''}" oninput="updateHotelPhoto(${idx}, 2, this.value)">
+      </div>
+    </div>
+  `).join('');
+
+  // инициализация селектов: выбрать preset, повесить обработчики, заблокировать поля при пресете
+  list.querySelectorAll('.hotel-select').forEach(sel => {
+    const idx = Number(sel.dataset.selectIdx);
+    const itemEl = list.querySelector(`[data-hotel-item][data-idx="${idx}"]`);
+    const matched = catalogMatchByStateHotel(state.hotels[idx]);
+    sel.value = matched ? matched.id : "__custom__";
+    lockHotelInputs(itemEl, !!matched);
+
+    sel.addEventListener('change', () => {
+      const val = sel.value;
+      if (val === "__custom__") {
+        lockHotelInputs(itemEl, false);
+        // не трогаем state — остаются пользовательские значения
+      } else {
+        const preset = catalogFindById(val);
+        applyPresetToState(idx, preset);
+        renderHotelsList(); // перерисуем карточку с заблокированными инпутами
+        render();           // обновим превью
+      }
+    });
+  });
+}
         
         function renderPricesList() {
             const list = document.getElementById('pricesList');
@@ -1021,17 +1340,18 @@
             
             // Add buttons
             document.getElementById('addHotel').addEventListener('click', () => {
+                // по умолчанию пустая карточка (manual):
                 state.hotels.push({
-                    city: 'Новый город',
-                    name: 'Новый отель',
-                    stars: 5,
-                    rating: 9.0,
-                    distance: '500м',
-                    photos: ['', '', '']
+                  city: '',
+                  name: '',
+                  stars: 5,
+                  rating: 9.0,
+                  distance: '',
+                  photos: ['', '', '']
                 });
                 renderHotelsList();
                 render();
-            });
+              });
             
             document.getElementById('addPrice').addEventListener('click', () => {
                 state.prices.push({ label: 'Новая цена', value: '$0' });
